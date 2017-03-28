@@ -16,7 +16,7 @@ var browserHistory = router.browserHistory;
 // Reference the high-level components
 var Main = require("../components/Main.jsx");
 var PropertyMap = require("../components/PropertyMap.jsx");
-
+var AddLocation = require("../components/AddLocation.jsx");
 
 // Export the Routes
 module.exports = (
@@ -24,6 +24,7 @@ module.exports = (
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
       <Route path='property' component={PropertyMap} />
+      <Route path='add' component={AddLocation} />
       <IndexRoute component={PropertyMap} />
     </Route>
   </Router>

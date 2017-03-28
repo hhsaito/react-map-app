@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 // Require Schemas
-// var Article = require("./server/model");
+var Properties = require("./server/model");
 
 // Create Instance of Express
 const app = express();
@@ -33,6 +33,21 @@ db.once("open", function() {
 });
 
 // -------------------------------------------------
+
+app.post("/add", function(req, res) {
+  var newLocation = new Properties(req.body);
+
+  console.log(req.body);
+
+  newLocation.save(function(err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
+});
 
 // Any non API GET routes will be directed to our React App and handled by React Router
 app.get("*", function(req, res) {

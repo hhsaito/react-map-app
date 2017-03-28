@@ -1,8 +1,6 @@
 // Include the Axios library for HTTP requests
 var axios = require("axios");
-
-// NYT API Key (Replace with your own API Key)
-// var APIKey = "9b3adf57854f4a19b7b5782cdd6e427a";
+var geocoder = require("geocoder");
 
 // Helper Functions
 var helpers = {
@@ -15,10 +13,21 @@ var helpers = {
         return results;
       });
   },
+
   // This will save new articles to our database
   postSaved: function(title, date, url) {
-    var newArticle = { title: title, date: date, url: url };
-    return axios.post("/api/saved", newArticle)
+    var newLocation = { 
+      address: address, 
+      city: city, 
+      state: state,
+      zipcode: zipcode,
+      bedrooms: bedrooms, 
+      baths: baths, 
+      asking: asking, 
+      latitude: latitude,
+      longitude: longitude
+    };
+    return axios.post("/api/add", newLocation)
       .then(function(response) {
         console.log("axios results", response.data._id);
         return response.data._id;
