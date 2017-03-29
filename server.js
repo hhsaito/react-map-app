@@ -21,7 +21,7 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-mongoose.connect("mongodb://localhost/reactmap_db");
+mongoose.connect("mongodb://react-map:react!map!p@ssword@ds145380.mlab.com:45380/heroku_dssg5hgc");
 var db = mongoose.connection;
 
 db.on("error", function(err) {

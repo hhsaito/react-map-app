@@ -4,28 +4,12 @@ const axios = require("axios");
 
 class AddLocation extends React.Component {
 
-  // Create Post User Feedback
-
+  // redirect after submission
   redirectToHome() {
     this.context.router.push('/');
   }
 
-  // sendSuccessNotification() {
-  //   notification['success']({
-  //     message: 'Yayyy!!',
-  //     description: 'Your post has been created.',
-  //   });
-  // }
-
-  // sendErrorNotification() {
-  //   notification['error']({
-  //     message: 'Uh Oh',
-  //     description: 'Something went wrong, please try again.',
-  //   });
-  // }
-
-  // Data Request Methods
-
+  // Axios post
   addLocation(postObj) {
     axios.post('/add', postObj)
       .then(() => {
@@ -36,45 +20,11 @@ class AddLocation extends React.Component {
       });
   }
 
-  createPost(postObj) {
-    this.startLoading();
-    axios.post('/posts', postObj)
-      .then(() => {
-        this.sendSuccessNotification();
-        this.endLoading();
-        this.redirectToPosts();
-      })
-      .catch((error) => {
-        this.sendErrorNotification();
-        this.endLoading();
-      });
-  }
-
-  // Setting Initial State
-
-  // initializeState() {
-  //   this.setState({
-  //     loading: false
-  //   });
-  // }
-
-  // // Lifecycle Methods
-
-  // componentWillMount() {
-  //   this.initializeState();
-  // }
-
   render() {
     return (
       <div>
         <h2>New Post</h2>
-        <LocationForm
-          // loading={this.state.loading}
-          submitAction={(postObj) => this.addLocation(postObj)}
-          // defaultTitle={'Foobar'}
-          // defaultCategory={'Programming'}
-          // defaultDate={'2017-03-05'}
-        />
+        <LocationForm submitAction={(postObj) => this.addLocation(postObj)}/>
       </div>
     )
   }

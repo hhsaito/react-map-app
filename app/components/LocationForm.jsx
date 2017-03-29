@@ -14,11 +14,11 @@ class LocationForm extends React.Component {
     this.setState(newState);
   }
 
-  // handleUpdateBedrooms(newVal) {
-  //   this.setState({
-  //     bedrooms: newVal
-  //   });
-  // }
+  handleUpdateBedrooms(newVal) {
+    this.setState({
+      bedrooms: newVal
+    });
+  }
 
   // handleUpdateBaths(newVal2) {
   //   this.setState({
@@ -85,7 +85,22 @@ class LocationForm extends React.Component {
               onChange={(event) => this.handleUpdateTextInput(event)}
             />
           </div>
-        
+          <div className='form-row'>
+            <label htmlFor='bedrooms'>Bedrooms</label><br/>
+            <select
+              defaultValue={this.state.bedrooms}
+              style={{ width: 120 }}
+              onChange={(newVal) => this.handleUpdateBedrooms(newVal)}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
           <div className='form-row'>
             <label htmlFor='asking'>Asking Price</label><br/>
             <input
