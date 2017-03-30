@@ -1,18 +1,20 @@
 // Include the Axios library for HTTP requests
 var axios = require("axios");
-var geocoder = require("geocoder");
+// var geocoder = require("geocoder");
 
 // Helper Functions
 var helpers = {
 
   // This will return any saved articles from our database
-  getSaved: function() {
-    return axios.get("/api/saved")
+  getProperties: function() {
+    return axios.get("/properties")
       .then(function(results) {
         console.log("axios results", results);
         return results;
       });
   },
+
+  
 
   // This will save new articles to our database
   postSaved: function(title, date, url) {
