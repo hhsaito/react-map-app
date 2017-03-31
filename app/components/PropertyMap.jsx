@@ -92,7 +92,9 @@ var PropertyMap = React.createClass({
 
   },
 
-  
+  setMapElementReference: function(mapElementReference) {
+    this.mapElement = mapElementReference;
+  },
 
   render: function () {
     return (

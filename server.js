@@ -21,7 +21,8 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-mongoose.connect("mongodb://reactmap:react!map!p4ssw0rd@ds145380.mlab.com:45380/heroku_dssg5hgc");
+// mongoose.connect("mongodb://reactmap:react!map!p4ssw0rd@ds145380.mlab.com:45380/heroku_dssg5hgc");
+mongoose.connect("mongodb://localhost/reactmap_db");
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -47,6 +48,21 @@ app.post("/add", function(req, res) {
       res.send(doc);
     }
   });
+});
+
+// Route to get saved properties
+app.get("/properties", function(req, res) {
+
+  Properties.find({})
+    .exec(function(err, doc) {
+
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.send(doc);
+      }
+    });
 });
 
 // Any non API GET routes will be directed to our React App and handled by React Router

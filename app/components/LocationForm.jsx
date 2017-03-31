@@ -8,23 +8,11 @@ class LocationForm extends React.Component {
     this.props.submitAction(this.state);
   }
 
-  handleUpdateTextInput(event) {
+  handleUpdates(event) {
     const newState = {};
     newState[event.target.id] = event.target.value;
     this.setState(newState);
   }
-
-  handleUpdateBedrooms(newVal) {
-    this.setState({
-      bedrooms: newVal
-    });
-  }
-
-  // handleUpdateBaths(newVal2) {
-  //   this.setState({
-  //     baths: newVal2
-  //   });
-  // }
 
   // Setting Initial State
   initializeState() {
@@ -33,8 +21,8 @@ class LocationForm extends React.Component {
       city: '',
       state: '',
       zipcode: '',
-      bedrooms: '',
-      baths: '',
+      bedrooms: this.props.defaultBeds || 1,
+      baths: this.props.defaultBaths || 1,
       asking: '',
     });
   }
@@ -46,7 +34,7 @@ class LocationForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="left-div">
         <form onSubmit={(event) => this.handleSubmit(event)}>
           <div className='form-row'>
             <label htmlFor='address'>Address</label><br/>
@@ -54,7 +42,7 @@ class LocationForm extends React.Component {
               defaultValue={this.state.address}
               type='text'
               id='address'
-              onChange={(event) => this.handleUpdateTextInput(event)}
+              onChange={(event) => this.handleUpdates(event)}
             />
           </div>
           <div className='form-row'>
@@ -63,7 +51,7 @@ class LocationForm extends React.Component {
               defaultValue={this.state.city}
               type='text'
               id='city'
-              onChange={(event) => this.handleUpdateTextInput(event)}
+              onChange={(event) => this.handleUpdates(event)}
             />
           </div>
           <div className='form-row'>
@@ -72,7 +60,7 @@ class LocationForm extends React.Component {
               defaultValue={this.state.state}
               type='text'
               id='state'
-              onChange={(event) => this.handleUpdateTextInput(event)}
+              onChange={(event) => this.handleUpdates(event)}
             />
           </div>
 
@@ -82,7 +70,7 @@ class LocationForm extends React.Component {
               defaultValue={this.state.zipcode}
               type='text'
               id='zipcode'
-              onChange={(event) => this.handleUpdateTextInput(event)}
+              onChange={(event) => this.handleUpdates(event)}
             />
           </div>
           <div className='form-row'>
@@ -90,7 +78,25 @@ class LocationForm extends React.Component {
             <select
               defaultValue={this.state.bedrooms}
               style={{ width: 120 }}
-              onChange={(newVal) => this.handleUpdateBedrooms(newVal)}
+              id='bedrooms'
+              onChange={(event) => this.handleUpdates(event)}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
+          <div className='form-row'>
+            <label htmlFor='baths'>Baths</label><br/>
+            <select
+              defaultValue={this.state.baths}
+              style={{ width: 120 }}
+              id='baths'
+              onChange={(event) => this.handleUpdates(event)}
             >
               <option value="1">1</option>
               <option value="2">2</option>
@@ -107,11 +113,11 @@ class LocationForm extends React.Component {
               defaultValue={this.state.asking}
               type='text'
               id='asking'
-              onChange={(event) => this.handleUpdateTextInput(event)}
+              onChange={(event) => this.handleUpdates(event)}
             />
           </div>
           <div className='form-row'>
-            <button type='submit'>Save</button>
+            <button type='submit'>Find Location</button>
           </div>
         </form>
       </div>
@@ -119,19 +125,10 @@ class LocationForm extends React.Component {
   }
 }
 
-
-// Props for PostForm component
+// Props for LocationForm component
 // Requires a "submitAction" function
-// optional "loading" boolean value
-// optional "defaultTitle" string value
-// optional "defaultCategory" string value
-// optional "defaultDate" string value
 LocationForm.propTypes = {
   submitAction: React.PropTypes.func.isRequired,
-  // loading: React.PropTypes.bool,
-  // defaultTitle: React.PropTypes.string,
-  // defaultCategory: React.PropTypes.string,
-  // defaultDate: React.PropTypes.string
 };
 
 module.exports = LocationForm;

@@ -9,6 +9,12 @@ class Main extends React.Component {
     return (
       <div>
 
+        <nav className="">
+          <ul className="">
+            <li><Link to="/add">Add</Link></li>
+          </ul>
+        </nav>
+
         {this.props.children}
 
       </div>
