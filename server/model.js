@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var PropertiesSchema = new Schema({
   verifiedAddress: {
-    type: String
+    type: String,
+    unique: true
   },
   bedrooms: {
     type: Number

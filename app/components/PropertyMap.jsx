@@ -67,7 +67,6 @@ const PropertyMap = React.createClass({
   componentDidMount: function() {
     let self = this;
     let mapElement = self.mapElement;
-    let markers = [];
 
     self.getProperties().then(function(propertyData) {
       self.setState({ propertydata: propertyData.data });
@@ -79,6 +78,20 @@ const PropertyMap = React.createClass({
         },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
+      /* add these listeners via React */
+      /*
+      google.maps.event.addDomListener(self.map, 'idle', function() {
+        center = map.getCenter();
+      });
+
+      google.maps.event.addDomListener(window, 'resize', function() {
+        map.setCenter(center);
+      });
+
+      google.maps.event.addListener(self.map, 'zoom_changed', function() {
+        if (map.getZoom() < minZoomLevel) map.setZoom(minZoomLevel);
+      });
+*/
       self.geocoder = new google.maps.Geocoder();
       self.markMap(self.map, propertyData);
     });
