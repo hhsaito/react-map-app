@@ -2,25 +2,13 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var PropertiesSchema = new Schema({
-  address: {
+  verifiedAddress: {
     type: String
-  },
-  city: {
-    type: String
-  },
-  state: {
-    type: String
-  },
-  zipcode: {
-    type: Number
   },
   bedrooms: {
     type: Number
   },
   baths: {
-    type: Number
-  },
-  asking: {
     type: Number
   },
   lat: {

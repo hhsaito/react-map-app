@@ -1,9 +1,9 @@
 // Include React as a dependency
-var React = require("react");
+const React = require("react");
 // Include the Helper (for the saved properties)
-var helpers = require("../utils/helpers");
+const axios = require("axios");
 
-var INITIAL_LOCATION = {
+const INITIAL_LOCATION = {
   address: '339 E Chicago Ave, Chicago, IL 60611',
   position: {
     latitude: 41.8962661,
@@ -11,85 +11,77 @@ var INITIAL_LOCATION = {
   }
 };
 
-var INITIAL_MAP_ZOOM_LEVEL = 15;
+const INITIAL_MAP_ZOOM_LEVEL = 10;
 
-var ATLANTIC_OCEAN = {
+const ATLANTIC_OCEAN = {
   latitude: 29.532804,
   longitude: -55.491477
 };
+let imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&' +
+          'chco=FFFFFF,008CFF,000000&ext=.png';
+let markerClusterer = null;
 
-var PropertyMap = React.createClass({ 
+const PropertyMap = React.createClass({ 
 
   getInitialState: function() {
   	return {
       propertydata: [],
-      isGeocodingError: false,
+      // do something
+
+      //with this
       foundAddress: INITIAL_LOCATION.address,
   	};
   },
 
-  geocodeAddress: function(address) {
-  	let self = this
-    this.geocoder.geocode({ 'address': address }, function handleResults(results, status) {
-
-      if (status === google.maps.GeocoderStatus.OK) {
-
-        self.setState({
-          foundAddress: results[0].formatted_address,
-          isGeocodingError: false
-        });
-
-        self.map.setCenter(results[0].geometry.location);
-        self.marker.setPosition(results[0].geometry.location);
-
-        return;
+  getProperties: function() {
+    return axios.get("/properties")
+      .then(function(results) {
+        console.log("axios results", results);
+        return results;
+      });
+  },
+  markMap: function(map, propertyData) {
+      let markers = [];
+      if (markerClusterer) {
+        markerClusterer.clearMarkers();
       }
+      let markerImage = new google.maps.MarkerImage(imageUrl,
+        new google.maps.Size(24, 32));
 
-      self.setState({
-        foundAddress: null,
-        isGeocodingError: true
+      for (let i = 0; i < propertyData.data.length; ++i) {
+        console.log(propertyData.data[i].lat);
+        let latLng = new google.maps.LatLng(propertyData.data[i].lat,
+            propertyData.data[i].long)
+        let marker = new google.maps.Marker({
+           position: latLng,
+           draggable: true,
+           icon: markerImage
+        });
+        markers.push(marker);
+      }
+      markerClusterer = new MarkerClusterer(this.map, markers, {
+        gridSize: 30,
       });
-
-      self.map.setCenter({
-        lat: ATLANTIC_OCEAN.latitude,
-        lng: ATLANTIC_OCEAN.longitude
-      });
-
-      self.marker.setPosition({
-        lat: ATLANTIC_OCEAN.latitude,
-        lng: ATLANTIC_OCEAN.longitude
-      });
-
-    });
   },
 
   componentDidMount: function() {
     let self = this;
-  	var mapElement = self.mapElement;
-    
-    self.map = new google.maps.Map(mapElement, {
-      zoom: INITIAL_MAP_ZOOM_LEVEL,
-      center: {
-        lat: INITIAL_LOCATION.position.latitude,
-        lng: INITIAL_LOCATION.position.longitude
-      }
-    });
+    let mapElement = self.mapElement;
+    let markers = [];
 
-    self.marker = new google.maps.Marker({
-      map: self.map,
-      position: {
-        lat: INITIAL_LOCATION.position.latitude,
-        lng: INITIAL_LOCATION.position.longitude
-      }
-    });
-
-    self.geocoder = new google.maps.Geocoder();
-  
-    helpers.getProperties().then(function(propertyData) {
+    self.getProperties().then(function(propertyData) {
       self.setState({ propertydata: propertyData.data });
-      console.log("property results", propertyData);
+      self.map = new google.maps.Map(mapElement, {
+        zoom: INITIAL_MAP_ZOOM_LEVEL,
+        center: {
+          lat: INITIAL_LOCATION.position.latitude,
+          lng: INITIAL_LOCATION.position.longitude
+        },
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+      self.geocoder = new google.maps.Geocoder();
+      self.markMap(self.map, propertyData);
     });
-
   },
 
   setMapElementReference: function(mapElementReference) {
@@ -100,11 +92,10 @@ var PropertyMap = React.createClass({
     return (
       <div>
 	      <h2>Locations</h2>
-	      {this.state.isGeocodingError ? <p className="bg-danger">Address not found.</p> : <p className="bg-info">{this.state.foundAddress}</p>}
 	      <div className="map" ref={this.setMapElementReference}></div>
 	      {this.state.propertydata.map(function(locations, i) {
 	        return (
-	          <p key={i}>{locations.address}, {locations.bedrooms}</p>
+	          <p key={i}>{locations.verifiedAddress}, {locations.bedrooms} bedrooms, {locations.baths} baths</p>
 	        );
 	      })}
 	      
