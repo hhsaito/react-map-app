@@ -5,9 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>React Map App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<style>
       .map {
         height: 300px;
+        margin: 1rem auto;
       }
       .savemap {
       	height: 250px;
@@ -15,14 +17,47 @@
       #right-div {
       	float: right;
       	width: 50%;
+        padding: 2rem;
+        background-color: #eceeef;
+        border-radius: .3rem;
       }
       #left-div {
       	float: left;
       	width: 50%;
+        padding: 2rem 2rem 2rem 0;
       }
       #app {
-      	width: 1200px;
+        max-width: 1024px;
       	margin: 0 auto;
+      }
+      .clearFloat { clear: both; }
+      main {
+        width: 100%;
+        content: "";
+        display: table;
+        clear: both;
+      }
+      h1 { text-align: center; margin-top: 1rem; }
+      h2 { margin-bottom: 2rem; border-bottom: 1px solid gray; padding-bottom: 1rem; }
+      main h2 { margin-top: 1rem; }
+      nav ul { list-style-type: none; }
+      nav ul li {
+        float: left;
+        margin-right: 1rem;
+      }
+      .view-properties {
+        width: 90%;
+        margin: 0 auto;
+      }
+      .savemap { margin: 1rem auto; }
+      @media screen and (max-width: 1023px) {
+        #app { width: 90%; }
+      }
+      @media screen and (max-width: 768px) {
+        #left-div, #right-div {
+          float: none;
+          width: 100%;
+        }
       }
     </style>
 </head>

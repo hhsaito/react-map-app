@@ -121,13 +121,13 @@ const PropertyMap = React.createClass({
 
   render: function () {
     return (
-      <div>
-	      <h2>Locations</h2>
+      <div className="clearFloat">
 	      <div className="map" ref={this.setMapElementReference}></div>
+        <h2>Locations</h2>
 	      {this.state.propertydata.map(function(locations, i) {
 	        return (
-	          <div key={i}><p>{locations.verifiedAddress}, {locations.bedrooms} bedrooms, {locations.baths} baths </p>
-            <button onClick={() => this.handleClick(locations)}>View</button></div>
+	          <div key={i} className="view-properties"><p><button className="btn btn-secondary" onClick={() => this.handleClick(locations)}>View</button>  {locations.verifiedAddress}, {locations.bedrooms} bedrooms, {locations.baths} baths </p>
+            </div>
 	        );
 	      }, this )}
 	      

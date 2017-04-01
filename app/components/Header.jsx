@@ -6,15 +6,15 @@ class Header extends React.Component {
     return (
       <header>
         <h1>React Map App</h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to='property' activeClassName='active' >
+        <nav className="navbar navbar-toggleable-md navbar-light navbar-inverse bg-primary">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to='property' activeClassName='active' >
                 Map
               </Link>
             </li>
             <li>
-              <Link to='add' activeClassName='active'>
+              <Link className="nav-link" to='add' activeClassName='active'>
                 Add a Property
               </Link>
             </li>

@@ -94,8 +94,8 @@ const AddLocation = React.createClass({
         /> 
         
         <div id="right-div">
-          {this.state.geocodingError ? <p className="bg-danger">Address not found.</p> : <div><p className="bg-info">Verify location: {this.state.verifiedAddress}</p>
-          <button onClick={(e) => this.handleClick(e)}>Save</button></div>}
+          {this.state.geocodingError ? <p className="bg-danger">Address not found.</p> : <div><p>Verify location: <strong>{this.state.verifiedAddress}</strong></p>
+          <button className="btn btn-secondary" onClick={(e) => this.handleClick(e)}>Save</button></div>}
           <div className="savemap" ref={this.setMapElementReference}></div>
         </div>
         

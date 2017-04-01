@@ -35,45 +35,50 @@ class LocationForm extends React.Component {
   render() {
     return (
       <div id="left-div">
+        <p>Enter your information and verify the location.</p>
         <form onSubmit={(event) => this.handleSubmit(event)}>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='address'>Address</label><br/>
             <input
               defaultValue={this.state.address}
               type='text'
               id='address'
               onChange={(event) => this.handleUpdates(event)}
+              className="form-control"
             />
           </div>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='city'>City</label><br/>
             <input
               defaultValue={this.state.city}
               type='text'
               id='city'
               onChange={(event) => this.handleUpdates(event)}
+              className="form-control"
             />
           </div>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='state'>State</label><br/>
             <input
               defaultValue={this.state.state}
               type='text'
               id='state'
               onChange={(event) => this.handleUpdates(event)}
+              className="form-control"
             />
           </div>
 
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='zipcode'>Zip Code</label><br/>
             <input
               defaultValue={this.state.zipcode}
               type='text'
               id='zipcode'
               onChange={(event) => this.handleUpdates(event)}
+              className="form-control"
             />
           </div>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='bedrooms'>Bedrooms</label><br/>
             <select
               defaultValue={this.state.bedrooms}
@@ -90,7 +95,7 @@ class LocationForm extends React.Component {
               <option value="7">7</option>
             </select>
           </div>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='baths'>Baths</label><br/>
             <select
               defaultValue={this.state.baths}
@@ -107,17 +112,18 @@ class LocationForm extends React.Component {
               <option value="7">7</option>
             </select>
           </div>
-          <div className='form-row'>
+          <div className='form-group'>
             <label htmlFor='otherinfo'>Additional Info</label><br/>
             <input
               defaultValue={this.state.otherinfo}
               type='text'
               id='otherinfo'
               onChange={(event) => this.handleUpdates(event)}
+              className="form-control"
             />
           </div>
-          <div className='form-row'>
-            <button type='submit'>Find Location</button>
+          <div className='form-group'>
+            <button type='submit' className="btn btn-primary">Find Location</button>
           </div>
         </form>
       </div>
