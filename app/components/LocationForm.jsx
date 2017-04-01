@@ -23,6 +23,7 @@ class LocationForm extends React.Component {
       zipcode: '',
       bedrooms: this.props.defaultBeds || 0,
       baths: this.props.defaultBaths || 0,
+      otherinfo: '',
     });
   }
 
@@ -105,6 +106,15 @@ class LocationForm extends React.Component {
               <option value="6">6</option>
               <option value="7">7</option>
             </select>
+          </div>
+          <div className='form-row'>
+            <label htmlFor='otherinfo'>Additional Info</label><br/>
+            <input
+              defaultValue={this.state.otherinfo}
+              type='text'
+              id='otherinfo'
+              onChange={(event) => this.handleUpdates(event)}
+            />
           </div>
           <div className='form-row'>
             <button type='submit'>Find Location</button>

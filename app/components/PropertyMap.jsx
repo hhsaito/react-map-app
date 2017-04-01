@@ -13,10 +13,6 @@ const INITIAL_LOCATION = {
 
 const INITIAL_MAP_ZOOM_LEVEL = 10;
 
-const ATLANTIC_OCEAN = {
-  latitude: 29.532804,
-  longitude: -55.491477
-};
 let imageUrl = 'http://chart.apis.google.com/chart?cht=mm&chs=24x32&' +
           'chco=FFFFFF,008CFF,000000&ext=.png';
 let markerClusterer = null;
@@ -30,9 +26,11 @@ const PropertyMap = React.createClass({
 
       //with this
       foundAddress: INITIAL_LOCATION.address,
+      centerLat: '',
+      centerLng: ''
   	};
   },
-
+  // Axios call to get data
   getProperties: function() {
     return axios.get("/properties")
       .then(function(results) {
@@ -40,6 +38,7 @@ const PropertyMap = React.createClass({
         return results;
       });
   },
+  // Take marker data and set for clusters
   markMap: function(map, propertyData) {
       let markers = [];
       if (markerClusterer) {
@@ -54,14 +53,31 @@ const PropertyMap = React.createClass({
             propertyData.data[i].long)
         let marker = new google.maps.Marker({
            position: latLng,
+           map: map,
            draggable: true,
            icon: markerImage
+           //institution: locations[i].institution
         });
+        google.maps.event.addListener(marker, 'click', (function(marker, index) {
+          return function(){
+            console.log(propertyData.data[i]);
+            map.setCenter(marker.position);
+            map.setZoom(15);
+            let infowindow = new google.maps.InfoWindow({
+              content: propertyData.data[i].otherinfo
+            });
+            infowindow.open(map,marker);
+          }
+        })(marker, i));
         markers.push(marker);
       }
       markerClusterer = new MarkerClusterer(this.map, markers, {
         gridSize: 30,
       });
+  },
+  handleClick: function(item) {
+    this.map.setCenter({ lat: item.lat, lng: item.long });
+    this.map.setZoom(15);
   },
 
   componentDidMount: function() {
@@ -94,6 +110,8 @@ const PropertyMap = React.createClass({
 */
       self.geocoder = new google.maps.Geocoder();
       self.markMap(self.map, propertyData);
+
+      return
     });
   },
 
@@ -108,9 +126,10 @@ const PropertyMap = React.createClass({
 	      <div className="map" ref={this.setMapElementReference}></div>
 	      {this.state.propertydata.map(function(locations, i) {
 	        return (
-	          <p key={i}>{locations.verifiedAddress}, {locations.bedrooms} bedrooms, {locations.baths} baths</p>
+	          <div key={i}><p>{locations.verifiedAddress}, {locations.bedrooms} bedrooms, {locations.baths} baths </p>
+            <button onClick={() => this.handleClick(locations)}>View</button></div>
 	        );
-	      })}
+	      }, this )}
 	      
       </div>
       // React.DOM.table(null,

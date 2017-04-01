@@ -1,6 +1,7 @@
 // Include React
 import React, { PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
+import { Header } from './Header.jsx';
 
 
 class Main extends React.Component {
@@ -8,13 +9,7 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-
-        <nav className="">
-          <ul className="">
-            <li><Link to="/add">Add</Link></li>
-          </ul>
-        </nav>
-
+        <Header />
         {this.props.children}
 
       </div>

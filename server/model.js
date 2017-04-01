@@ -18,6 +18,9 @@ var PropertiesSchema = new Schema({
   long: {
     type: Number
   },
+  otherinfo: {
+    type: String
+  },
   approved: {
     type: Boolean,
     default: false

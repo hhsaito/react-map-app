@@ -51,7 +51,8 @@ const AddLocation = React.createClass({
   checkLocation: function (postObj) {
     this.setState({
       bedrooms: postObj.bedrooms,
-      baths: postObj.baths
+      baths: postObj.baths,
+      otherinfo: postObj.otherinfo,
     });
     var mapElement = this.mapElement;
     this.map = new google.maps.Map(mapElement, {
